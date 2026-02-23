@@ -74,3 +74,6 @@ filters and primary targets. PDF export follows the template in docs/CASE.md.
 ## Current State Notes
 - src/ contains a Makefile and empty dependency files.
 - Code scaffolding is not yet implemented; follow docs/TASKS.md for build order.
+
+## Collaboration Workflow
+- When the user explicitly instructs to do so, commit and push completed changes to the configured remote repository after verification.
