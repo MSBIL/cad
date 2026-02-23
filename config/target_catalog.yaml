@@ -1,0 +1,92 @@
+version: 1
+targets:
+  - id: T_GAP_CLOSE
+    label: Gap Close
+    group: Gap
+    occurred_rule: Gap_Close_Bar > 0
+    event_bar_col: Gap_Close_Bar
+    default_plots: [overall, timing, period]
+  - id: T_BULL_BO_OR12
+    label: Bull OR12 Breakout
+    group: OR12
+    occurred_rule: Bull_BO_12_Bar > 0
+    event_bar_col: Bull_BO_12_Bar
+    default_plots: [overall, timing]
+  - id: T_BEAR_BO_OR12
+    label: Bear OR12 Breakout
+    group: OR12
+    occurred_rule: Bear_BO_12_Bar > 0
+    event_bar_col: Bear_BO_12_Bar
+    default_plots: [overall, timing]
+  - id: T_BULL_50_OR12
+    label: Bull 50% MM OR12
+    group: OR12
+    occurred_rule: Bull_50_12_Bar > 0
+    event_bar_col: Bull_50_12_Bar
+    default_plots: [overall, timing]
+  - id: T_BEAR_50_OR12
+    label: Bear 50% MM OR12
+    group: OR12
+    occurred_rule: Bear_50_12_Bar > 0
+    event_bar_col: Bear_50_12_Bar
+    default_plots: [overall, timing]
+  - id: T_BULL_100_OR12
+    label: Bull 100% MM OR12
+    group: OR12
+    occurred_rule: Bull_100_12_Bar > 0
+    event_bar_col: Bull_100_12_Bar
+    default_plots: [overall, timing, period]
+  - id: T_BEAR_100_OR12
+    label: Bear 100% MM OR12
+    group: OR12
+    occurred_rule: Bear_100_12_Bar > 0
+    event_bar_col: Bear_100_12_Bar
+    default_plots: [overall, timing, period]
+  - id: T_BULL_BO_OR18
+    label: Bull OR18 Breakout
+    group: OR18
+    occurred_rule: Bull_BO_18_Bar > 0
+    event_bar_col: Bull_BO_18_Bar
+    default_plots: [overall, timing]
+  - id: T_BEAR_BO_OR18
+    label: Bear OR18 Breakout
+    group: OR18
+    occurred_rule: Bear_BO_18_Bar > 0
+    event_bar_col: Bear_BO_18_Bar
+    default_plots: [overall, timing]
+  - id: T_BULL_50_OR18
+    label: Bull 50% MM OR18
+    group: OR18
+    occurred_rule: Bull_50_18_Bar > 0
+    event_bar_col: Bull_50_18_Bar
+    default_plots: [overall, timing]
+  - id: T_BEAR_50_OR18
+    label: Bear 50% MM OR18
+    group: OR18
+    occurred_rule: Bear_50_18_Bar > 0
+    event_bar_col: Bear_50_18_Bar
+    default_plots: [overall, timing]
+  - id: T_BULL_100_OR18
+    label: Bull 100% MM OR18
+    group: OR18
+    occurred_rule: Bull_100_18_Bar > 0
+    event_bar_col: Bull_100_18_Bar
+    default_plots: [overall, timing, period]
+  - id: T_BEAR_100_OR18
+    label: Bear 100% MM OR18
+    group: OR18
+    occurred_rule: Bear_100_18_Bar > 0
+    event_bar_col: Bear_100_18_Bar
+    default_plots: [overall, timing, period]
+  - id: T_HOD_TIMING
+    label: HOD Timing
+    group: Extremes
+    occurred_rule: HOD_Bar > 0
+    event_bar_col: HOD_Bar
+    default_plots: [timing, period]
+  - id: T_LOD_TIMING
+    label: LOD Timing
+    group: Extremes
+    occurred_rule: LOD_Bar > 0
+    event_bar_col: LOD_Bar
+    default_plots: [timing, period]

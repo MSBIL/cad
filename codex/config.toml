@@ -1,0 +1,9 @@
+# codex/config.toml
+# Placeholder config. Update as needed for your Codex setup.
+
+[agent]
+name = "cad"
+context_file = "AGENTS.md"
+
+[docs]
+index = "docs/INDEX.md"

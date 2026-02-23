@@ -1,0 +1,109 @@
+version: 1
+templates:
+  - id: CS1
+    name: Large Bull Gap + Not Closed By Morning
+    filters:
+      - field: Opening_Gap_Percent
+        op: ">"
+        value: 0.5
+      - any:
+          - {field: Gap_Close_Bar, op: "==", value: 0}
+          - {field: Gap_Close_Bar, op: ">", value: 27}
+    primary_targets: [T_GAP_CLOSE, T_HOD_TIMING, T_LOD_TIMING]
+    overlays: [or12, or18, gap_close, hod, lod]
+  - id: CS2
+    name: Large Bear Gap + Not Closed By Morning
+    filters:
+      - field: Opening_Gap_Percent
+        op: "<"
+        value: -0.5
+      - any:
+          - {field: Gap_Close_Bar, op: "==", value: 0}
+          - {field: Gap_Close_Bar, op: ">", value: 27}
+    primary_targets: [T_GAP_CLOSE, T_LOD_TIMING, T_HOD_TIMING]
+    overlays: [or12, or18, gap_close, hod, lod]
+  - id: CS3
+    name: Large Bull Gap + ORCL Above Open
+    filters:
+      - field: Opening_Gap_Percent
+        op: ">"
+        value: 0.5
+      - field: ORCL_O
+        op: "=="
+        value: 1
+    primary_targets: [T_GAP_CLOSE, T_BULL_100_OR12, T_BULL_100_OR18]
+    overlays: [or12, or18, bull_events, gap_close]
+  - id: CS4
+    name: Neutral Gap + OR12 Bull Breakout
+    filters:
+      - field: Opening_Gap_Percent
+        op: "between"
+        value: [-0.13, 0.13]
+      - field: Bull_BO_12_Bar
+        op: ">"
+        value: 0
+    primary_targets: [T_BULL_50_OR12, T_BULL_100_OR12, T_HOD_TIMING]
+    overlays: [or12, bull_events, hod]
+  - id: CS5
+    name: Neutral Gap + OR12 Bear Breakout
+    filters:
+      - field: Opening_Gap_Percent
+        op: "between"
+        value: [-0.13, 0.13]
+      - field: Bear_BO_12_Bar
+        op: ">"
+        value: 0
+    primary_targets: [T_BEAR_50_OR12, T_BEAR_100_OR12, T_LOD_TIMING]
+    overlays: [or12, bear_events, lod]
+  - id: CS6
+    name: Bull OR12 Breakout but 100% never hits
+    filters:
+      - field: Bull_BO_12_Bar
+        op: ">"
+        value: 0
+      - field: Bull_100_12_Bar
+        op: "=="
+        value: 0
+    primary_targets: [T_BEAR_50_OR12, T_BEAR_100_OR12, T_LOD_TIMING]
+    overlays: [or12, bull_events, bear_events, hod, lod]
+  - id: CS7
+    name: Bull OR12 Breakout and 100% hits
+    filters:
+      - field: Bull_BO_12_Bar
+        op: ">"
+        value: 0
+      - field: Bull_100_12_Bar
+        op: ">"
+        value: 0
+    primary_targets: [T_HOD_TIMING, T_LOD_TIMING, T_BULL_100_OR12]
+    overlays: [or12, bull_events, hod, lod]
+  - id: CS8
+    name: HTF Confluence PDH and GXH break
+    filters:
+      - field: PDH_BO_Bar
+        op: ">"
+        value: 0
+      - field: GXH_BO_Bar
+        op: ">"
+        value: 0
+    primary_targets: [T_BULL_100_OR12, T_BULL_100_OR18, T_HOD_TIMING]
+    overlays: [htf_levels, bull_events, hod]
+  - id: CS9
+    name: Bull context ORCL Above PD and Open
+    filters:
+      - field: ORCL_PD
+        op: "=="
+        value: 1
+      - field: ORCL_O
+        op: "=="
+        value: 1
+    primary_targets: [T_BULL_100_OR12, T_BULL_100_OR18, T_GAP_CLOSE]
+    overlays: [or12, or18, bull_events]
+  - id: CS10
+    name: Strong intraday EMA dominance
+    filters:
+      - field: Closes_Above_EMA_5m
+        op: ">="
+        value: 65
+    primary_targets: [T_BULL_100_OR12, T_BULL_100_OR18, T_HOD_TIMING]
+    overlays: [ema, bull_events, hod, lod]

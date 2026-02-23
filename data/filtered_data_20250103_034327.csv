@@ -1,0 +1,18 @@
+Field Name,Definition
+Gap Close Bar,Bar on which opening gap closed
+Opening Gap Percent,Opening gap as a percentage of average daily range
+Bull BO of OR12,5m bar on which market BO from high of OR12
+OR Bull 50% MM,5m bar on which 50% bull measured move target from OR12 is reached
+OR Bull 100% MM,5m bar on which 100% bull measured move target from OR12 is reached
+Bear BO of OR12,5m bar on which market BO from low of OR12
+OR Bear 50% MM,5m bar on which 50% bear measured move target from OR12 is reached
+OR Bear 100% MM,5m bar on which 100% bear measured move target from OR12 is reached
+Bull BO of OR18,5m bar on which market BO from high of OR18
+OR18 Bull 50% MM,5m bar on which 50% bull measured move target from OR18 is reached
+OR18 Bull 100% MM,5m bar on which 100% bull measured move target from OR18 is reached
+Bear BO of OR18,5m bar on which market BO from low of OR18
+OR18 Bear 50% MM,5m bar on which 50% bear measured move target from OR18 is reached
+OR18 Bear 100% MM,5m bar on which 100% bear measured move target from OR18 is reached
+ORCL to Open,Location of OR12 close relative to open
+ORCL to PD Range,Location of OR12 close relative to previous day range
+ORCL to GX Range,Location of OR12 close relative to globex range

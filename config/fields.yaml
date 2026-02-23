@@ -1,0 +1,95 @@
+version: 1
+bar_index:
+  name: Bar5
+  min: 1
+  max: 81
+bucket_labels:
+  "-1": Below
+  "0": Inside
+  "1": Above
+fields:
+  Date:
+    dtype: date
+    reducer: FIRST
+  Bar5:
+    dtype: integer
+    reducer: LAST
+  Opening_Gap_Percent:
+    dtype: numeric
+    reducer: FIRST
+    thresholds: [-1.0, -0.5, -0.13, 0.13, 0.5, 1.0]
+  Day_of_Week:
+    dtype: categorical
+    reducer: FIRST
+  Day_of_Month:
+    dtype: integer
+    reducer: FIRST
+  Range_12_Percent:
+    dtype: numeric
+    reducer: FIRST
+  Range_18_Percent:
+    dtype: numeric
+    reducer: FIRST
+  ORCL_O:
+    dtype: bucket
+    reducer: LAST
+    labels_ref: bucket_labels
+  ORCL_PD:
+    dtype: bucket
+    reducer: LAST
+    labels_ref: bucket_labels
+  ORCL_GX:
+    dtype: bucket
+    reducer: LAST
+    labels_ref: bucket_labels
+  Gap_Close_Bar:
+    dtype: event_bar
+    reducer: MAXEVENT
+  Bull_BO_Hit_12:
+    dtype: event_bar
+    reducer: MAXEVENT
+  Bear_BO_Hit_12:
+    dtype: event_bar
+    reducer: MAXEVENT
+  Bull_50_Hit_12:
+    dtype: event_bar
+    reducer: MAXEVENT
+  Bull_100_Hit_12:
+    dtype: event_bar
+    reducer: MAXEVENT
+  Bear_50_Hit_12:
+    dtype: event_bar
+    reducer: MAXEVENT
+  Bear_100_Hit_12:
+    dtype: event_bar
+    reducer: MAXEVENT
+  Bull_BO_Hit_18:
+    dtype: event_bar
+    reducer: MAXEVENT
+  Bear_BO_Hit_18:
+    dtype: event_bar
+    reducer: MAXEVENT
+  Bull_50_Hit_18:
+    dtype: event_bar
+    reducer: MAXEVENT
+  Bull_100_Hit_18:
+    dtype: event_bar
+    reducer: MAXEVENT
+  Bear_50_Hit_18:
+    dtype: event_bar
+    reducer: MAXEVENT
+  Bear_100_Hit_18:
+    dtype: event_bar
+    reducer: MAXEVENT
+  HOD_Bar:
+    dtype: event_bar
+    reducer: MAXEVENT
+  LOD_Bar:
+    dtype: event_bar
+    reducer: MAXEVENT
+  Closes_Above_EMA_5m:
+    dtype: numeric
+    reducer: LAST
+  Closes_Below_EMA_5m:
+    dtype: numeric
+    reducer: LAST
