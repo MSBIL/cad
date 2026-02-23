@@ -10,7 +10,7 @@ from analytics.filters import FilterClause, apply_filters
 from analytics.targets import compute_target_stats
 from reports.case_study_pdf import export_case_study_pdf
 
-CASE_CFG = Path(__file__).resolve().parents[3] / 'config' / 'case_templates.yaml'
+CASE_CFG = Path(__file__).resolve().parents[2] / 'config' / 'case_templates.yaml'
 
 
 def _load_cases() -> list[dict]:

@@ -32,11 +32,10 @@ app = [
 ]
 
 [tool.setuptools]
-package-dir = {"" = "src"}
 include-package-data = true
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["."]
 include = ["data_io*", "features*", "analytics*", "app*", "reports*"]
 
 [tool.pytest.ini_options]
