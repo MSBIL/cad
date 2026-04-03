@@ -18,7 +18,7 @@ from data_io.freshness import read_latest_update
 from data_io.load_intraday import load_intraday
 from features.validate_features import DailyFeatureValidationError, validate_daily_features
 from scripts.build_daily_features import build_daily_features
-from app.tabs import overview, query_builder, targets_table, timing, period, data_health, case_studies, hypothesis_lab
+from app.tabs import overview, query_builder, targets_table, data_health, case_studies, hypothesis_lab
 
 DEFAULT_INTRADAY = ROOT / 'data' / 'filtered_data_20250103_034327.xlsx'
 DEFAULT_DAILY = ROOT / 'data' / 'daily_features.parquet'
@@ -73,17 +73,13 @@ def main() -> None:
     shared = {'daily': daily, 'intraday': intraday, 'targets': targets, 'mask': mask, 'qa': qa,
               'freshness': read_latest_update(FRESHNESS_JSON), 'root': ROOT}
 
-    choice = st.sidebar.radio('Navigate', ['Overview','Query Builder','Targets Table','Timing','Period','Data Health','Case Studies','Hypothesis Lab'])
+    choice = st.sidebar.radio('Navigate', ['Overview','Query Builder','Targets Table','Data Health','Case Studies','Hypothesis Lab'])
     if choice == 'Overview':
         overview.render(shared)
     elif choice == 'Query Builder':
         query_builder.render(shared)
     elif choice == 'Targets Table':
         targets_table.render(shared)
-    elif choice == 'Timing':
-        timing.render(shared)
-    elif choice == 'Period':
-        period.render(shared)
     elif choice == 'Data Health':
         data_health.render(shared)
     elif choice == 'Case Studies':

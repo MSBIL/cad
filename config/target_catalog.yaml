@@ -90,3 +90,39 @@ targets:
     occurred_rule: LOD_Bar > 0
     event_bar_col: LOD_Bar
     default_plots: [timing, period]
+  - id: T_HOD_BY_12
+    label: HOD by Bar 12
+    group: Extremes
+    occurred_rule: (HOD_Bar > 0) & (HOD_Bar <= 12)
+    event_bar_col: HOD_Bar
+    default_plots: [overall, timing]
+  - id: T_LOD_BY_12
+    label: LOD by Bar 12
+    group: Extremes
+    occurred_rule: (LOD_Bar > 0) & (LOD_Bar <= 12)
+    event_bar_col: LOD_Bar
+    default_plots: [overall, timing]
+  - id: T_HOD_BY_18
+    label: HOD by Bar 18
+    group: Extremes
+    occurred_rule: (HOD_Bar > 0) & (HOD_Bar <= 18)
+    event_bar_col: HOD_Bar
+    default_plots: [overall, timing]
+  - id: T_LOD_BY_18
+    label: LOD by Bar 18
+    group: Extremes
+    occurred_rule: (LOD_Bar > 0) & (LOD_Bar <= 18)
+    event_bar_col: LOD_Bar
+    default_plots: [overall, timing]
+  - id: T_HOD_BY_42
+    label: HOD by Bar 42
+    group: Extremes
+    occurred_rule: (HOD_Bar > 0) & (HOD_Bar <= 42)
+    event_bar_col: HOD_Bar
+    default_plots: [overall, timing]
+  - id: T_LOD_BY_42
+    label: LOD by Bar 42
+    group: Extremes
+    occurred_rule: (LOD_Bar > 0) & (LOD_Bar <= 42)
+    event_bar_col: LOD_Bar
+    default_plots: [overall, timing]

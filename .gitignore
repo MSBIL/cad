@@ -24,6 +24,8 @@ Thumbs.db
 # Generated outputs
 outputs/
 data/daily_features.parquet
+.cad_cache/
+data/.cad_cache/
 
 # Streamlit cache/config (local)
 .streamlit/

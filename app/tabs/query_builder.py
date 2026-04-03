@@ -12,9 +12,22 @@ def render(ctx: dict) -> None:
     clauses = []
 
     with st.expander('Gap range', expanded=True):
-        gmin, gmax = st.slider('Opening_Gap_Percent', -5.0, 5.0, (-5.0, 5.0), 0.01)
-        if (gmin, gmax) != (-5.0, 5.0):
-            clauses.append(FilterClause('Opening_Gap_Percent', 'between', (gmin, gmax), 'Gap range'))
+        # Gap percentage is stored as decimal (e.g., 0.01 = 1%)
+        # Display as percentage for user convenience
+        gmin_pct, gmax_pct = st.slider(
+            'Opening Gap (%)', 
+            -100.0, 100.0, (-100.0, 100.0), 0.1,
+            help='Gap size as percentage of average daily range. Positive = gap up, Negative = gap down'
+        )
+        # Convert percentage input to decimal for filtering
+        gmin, gmax = gmin_pct / 100.0, gmax_pct / 100.0
+        if (gmin, gmax) != (-1.0, 1.0):
+            clauses.append(FilterClause(
+                'Opening_Gap_Percent', 
+                'between', 
+                (gmin, gmax), 
+                f'Gap {gmin_pct:.1f}% to {gmax_pct:.1f}%'
+            ))
 
     with st.expander('ORCL buckets', expanded=True):
         for key in ['ORCL_O', 'ORCL_PD', 'ORCL_GX']:

@@ -48,12 +48,50 @@ def _build_figure(day_intraday: pd.DataFrame, day_daily: pd.Series):
     import plotly.graph_objects as go
     x = day_intraday['Bar5']
     fig = go.Figure(data=[go.Candlestick(x=x, open=day_intraday['Open_5m'], high=day_intraday['High_5m'], low=day_intraday['Low_5m'], close=day_intraday['Close_5m'], name='5m')])
+    
+    # Calculate gap information
+    first_bar = day_intraday.iloc[0] if not day_intraday.empty else None
+    gap_info_text = ""
+    if first_bar is not None and 'Opening_Gap_Percent' in day_daily:
+        gap_pct = day_daily.get('Opening_Gap_Percent', 0)
+        # Estimate gap in points (approximate from percentage and price)
+        open_price = float(first_bar['Open_5m'])
+        # Gap points = open - previous close (approximate from gap percentage)
+        gap_points = open_price * gap_pct if pd.notna(gap_pct) else 0
+        gap_info_text = f"Gap: {gap_points:.2f} pts ({gap_pct:.2%})" if pd.notna(gap_pct) else "Gap: N/A"
+    
+    # Add reference levels: GX high/low, PD high/low
+    reference_levels = []
+    
+    # Previous Day High/Low (if available in intraday data)
+    if 'PDH' in day_intraday.columns and not day_intraday['PDH'].isna().all():
+        pdh = float(day_intraday['PDH'].iloc[0])
+        reference_levels.append((pdh, 'PDH', 'blue', 'dashdot'))
+    if 'PDL' in day_intraday.columns and not day_intraday['PDL'].isna().all():
+        pdl = float(day_intraday['PDL'].iloc[0])
+        reference_levels.append((pdl, 'PDL', 'blue', 'dashdot'))
+    
+    # Globex High/Low (if available in intraday data)
+    if 'GXH' in day_intraday.columns and not day_intraday['GXH'].isna().all():
+        gxh = float(day_intraday['GXH'].iloc[0])
+        reference_levels.append((gxh, 'GXH', 'purple', 'dot'))
+    if 'GXL' in day_intraday.columns and not day_intraday['GXL'].isna().all():
+        gxl = float(day_intraday['GXL'].iloc[0])
+        reference_levels.append((gxl, 'GXL', 'purple', 'dot'))
+    
+    # Add reference level lines
+    for level, label, color, dash in reference_levels:
+        fig.add_hline(level, line_dash=dash, line_color=color, annotation_text=label, 
+                     annotation_position="right", line_width=1.5, opacity=0.7)
+    
     # Explicit OR12/OR18 overlays computed from the first 12/18 bars.
     for n, dash in [(12, 'dot'), (18, 'dash')]:
         sub = day_intraday.loc[day_intraday['Bar5'] <= n]
         if not sub.empty:
             fig.add_hline(float(sub['High_5m'].max()), line_dash=dash, line_color='green', annotation_text=f'OR{n} High')
             fig.add_hline(float(sub['Low_5m'].min()), line_dash=dash, line_color='red', annotation_text=f'OR{n} Low')
+    
+    # Event markers
     marker_specs = [('Bull_BO_12_Bar','Bull BO12','green'),('Bear_BO_12_Bar','Bear BO12','red'),('Bull_100_12_Bar','Bull100/12','darkgreen'),('Bear_100_12_Bar','Bear100/12','darkred'),('Bull_BO_18_Bar','Bull BO18','lime'),('Bear_BO_18_Bar','Bear BO18','orange'),('Gap_Close_Bar','Gap Close','blue'),('HOD_Bar','HOD','purple'),('LOD_Bar','LOD','brown')]
     for col, label, color in marker_specs:
         if col in day_daily and pd.notna(day_daily[col]) and float(day_daily[col]) > 0:
@@ -61,7 +99,21 @@ def _build_figure(day_intraday: pd.DataFrame, day_daily: pd.Series):
             row = day_intraday.loc[day_intraday['Bar5'] == bar]
             if not row.empty:
                 fig.add_scatter(x=[bar], y=[float(row['Close_5m'].iloc[-1])], mode='markers+text', text=[label], textposition='top center', marker={'color': color, 'size': 10}, name=label)
-    fig.update_layout(height=520, xaxis_title='Bar5', yaxis_title='Price')
+    
+    # Add gap info as annotation at top left
+    if gap_info_text:
+        fig.add_annotation(
+            text=gap_info_text,
+            xref="paper", yref="paper",
+            x=0.02, y=0.98,
+            showarrow=False,
+            font=dict(size=12, color="black"),
+            bgcolor="rgba(255, 255, 255, 0.8)",
+            bordercolor="black",
+            borderwidth=1
+        )
+    
+    fig.update_layout(height=520, xaxis_title='Bar5', yaxis_title='Price', showlegend=True)
     return fig
 
 

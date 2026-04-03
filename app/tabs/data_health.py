@@ -17,7 +17,8 @@ def render(ctx: dict) -> None:
     st.markdown('**Freshness**')
     st.json(freshness if freshness else {'status': 'missing latest_update.json'})
     st.markdown('**Null rates**')
-    nulls = daily.isna().mean().sort_values(ascending=False).rename('null_rate').reset_index(names='column')
+    nulls = daily.isna().mean().sort_values(ascending=False).rename('null_rate').reset_index()
+    nulls.columns = ['column', 'null_rate']
     st.dataframe(nulls.head(30), use_container_width=True)
     st.markdown('**Bar-count anomalies**')
     if {'Date','Bar5'}.issubset(intraday.columns):
